@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Employee } from "../classes/Employee.class";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { addEmployee, getEmployeeById } from "../model/employee.model";
 
 function EmployeeForm() {
   const [empFormData, setempFormData] = useState(new Employee());
   const [updateMode, setupdateMode] = useState(false);
+
+  const navigate = useNavigate();
+
   function updateEmpFormValue(event) {
     setempFormData({ ...empFormData, [event.target.name]: event.target.value });
   }
 
   function updateEmpFormFile(event) {
-    console.log(event.target.files);
-
     setempFormData({
       ...empFormData,
       [event.target.name]: event.target.files[0],
@@ -25,7 +26,7 @@ function EmployeeForm() {
     const getDataById = async (id) => {
       if (urlParams._id) {
         const data = await getEmployeeById(id);
-        if (data?.data) {
+        if (data.data) {
           const updatesJoiningDate = new Date(
             data.data.joiningDate
           ).toLocaleDateString("en-CA");
@@ -47,8 +48,10 @@ function EmployeeForm() {
       formData.append(key, empFormData[key]);
     }
     const data = await addEmployee(formData);
-    console.log(data.data);
-    alert("Employee Added with id " + empFormData._id);
+    if (data.data) {
+      alert("Employee Added with id " + empFormData._id);
+      navigate("/employee");
+    } else alert("Rrror");
   }
   return (
     <section className="bg-gray-2 rounded-xl max-w-[600px] mx-auto">

@@ -20,3 +20,14 @@ export async function addEmployee(formData) {
 export function updateEmployee() {}
 
 export function deleteEmployeeById() {}
+
+function toBase64(arr) {
+  return btoa(
+    arr?.reduce((data, byte) => data + String.fromCharCode(byte), "")
+  );
+}
+export function bufferToImage(data) {
+  let profilePicBuffer = data.data.data;
+  const url = `data:image/jpeg;base64,${toBase64(profilePicBuffer)}`;
+  return url;
+}

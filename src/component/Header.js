@@ -27,6 +27,9 @@ function Header() {
         <Link to="/" className="navbar-item">
           Home
         </Link>
+        <Link to="/employee" className="navbar-item">
+          Employees
+        </Link>
         <Link to="/addemployee" className="navbar-item">
           Add Employee
         </Link>

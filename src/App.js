@@ -10,7 +10,7 @@ function App() {
   const [title, settitle] = useState("Employee Crud");
 
   setTimeout(() => {
-    settitle("new title");
+    settitle("Deepak");
   }, 2000);
   return (
     <>

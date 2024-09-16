@@ -12,6 +12,8 @@ import Home from "./views/Home";
 import AdminLogin from "./component/AdminLogin";
 import EmployeeForm from "./component/EmployeeForm";
 import Learning from "./component/Learning";
+import { getAllEmployee } from "./model/employee.model";
+import Employees from "./component/Employees";
 
 const employeeRouter = [
   {
@@ -25,6 +27,11 @@ const employeeRouter = [
       {
         path: "/home",
         element: <Home />,
+      },
+      {
+        path: "employee",
+        element: <Employees />,
+        loader: async () => await getAllEmployee(),
       },
       {
         path: "login",

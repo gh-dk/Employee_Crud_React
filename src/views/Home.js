@@ -1,10 +1,11 @@
 import React from "react";
-import Employees from "../component/Employees";
 
 function Home() {
   return (
     <>
-      <Employees />
+      <div className="mx-auto  min-h-[300px] flex justify-center items-center">
+        <h1 className="text-[60px] font-bold"> Employee Crud</h1>
+      </div>
     </>
   );
 }
