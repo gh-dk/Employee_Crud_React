@@ -6,7 +6,6 @@ export class Employee {
     address = "",
     joiningDate = "",
     dept = "",
-    age = "",
     email = ""
   ) {
     this._id = _id;
@@ -15,7 +14,6 @@ export class Employee {
     this.address = address;
     this.joiningDate = joiningDate;
     this.dept = dept;
-    this.age = age;
     this.email = email;
   }
 }

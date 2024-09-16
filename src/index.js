@@ -8,7 +8,7 @@ import {
   redirect,
   RouterProvider,
 } from "react-router-dom";
-import Home from "./component/views/Home";
+import Home from "./views/Home";
 import AdminLogin from "./component/AdminLogin";
 import EmployeeForm from "./component/EmployeeForm";
 import Learning from "./component/Learning";
@@ -32,6 +32,10 @@ const employeeRouter = [
       },
       {
         path: "/addEmployee",
+        element: <EmployeeForm />,
+      },
+      {
+        path: "/editEmployee/:_id",
         element: <EmployeeForm />,
       },
       {

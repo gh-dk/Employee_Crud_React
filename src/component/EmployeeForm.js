@@ -1,24 +1,61 @@
 import React, { useEffect, useState } from "react";
 import { Employee } from "../classes/Employee.class";
+import { useParams } from "react-router-dom";
+import { addEmployee, getEmployeeById } from "../model/employee.model";
 
 function EmployeeForm() {
   const [empFormData, setempFormData] = useState(new Employee());
-
+  const [updateMode, setupdateMode] = useState(false);
   function updateEmpFormValue(event) {
     setempFormData({ ...empFormData, [event.target.name]: event.target.value });
   }
 
-  // useEffect(() => {
-  //   console.log(empFormData);
-  // });
+  function updateEmpFormFile(event) {
+    console.log(event.target.files);
 
-  function submitForm(e) {
+    setempFormData({
+      ...empFormData,
+      [event.target.name]: event.target.files[0],
+    });
+  }
+
+  //if Got Id from url
+  const urlParams = useParams();
+  useEffect(() => {
+    const getDataById = async (id) => {
+      if (urlParams._id) {
+        const data = await getEmployeeById(id);
+        if (data?.data) {
+          const updatesJoiningDate = new Date(
+            data.data.joiningDate
+          ).toLocaleDateString("en-CA");
+          setempFormData({ ...data.data, joiningDate: updatesJoiningDate });
+          setupdateMode(true);
+        } else {
+          alert("Error");
+        }
+      }
+    };
+    getDataById(urlParams._id);
+  }, [urlParams]);
+
+  //submit form
+  async function submitForm(e) {
     e.preventDefault();
-    console.log(empFormData);
+    const formData = new FormData();
+    for (const key in empFormData) {
+      formData.append(key, empFormData[key]);
+    }
+    const data = await addEmployee(formData);
+    console.log(data.data);
+    alert("Employee Added with id " + empFormData._id);
   }
   return (
     <section className="bg-gray-2 rounded-xl max-w-[600px] mx-auto">
       <div className="p-8 shadow-lg">
+        <h1 className="text-center text-2xl font-bold mb-5">
+          {!updateMode ? "Add" : "Update"} Employee
+        </h1>
         <form onSubmit={submitForm} className="space-y-4">
           <div className="w-full">
             <label className="sr-only" htmlFor="id">
@@ -33,6 +70,7 @@ function EmployeeForm() {
               name="_id"
               onChange={updateEmpFormValue}
               required
+              readOnly={updateMode}
             />
           </div>
           <div className="w-full">
@@ -52,8 +90,8 @@ function EmployeeForm() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label className="sr-only" htmlFor="email">
+            <div className="">
+              <label className="sr-only " htmlFor="email">
                 Email
               </label>
               <input
@@ -68,18 +106,17 @@ function EmployeeForm() {
               />
             </div>
 
-            <div>
-              <label className="sr-only" htmlFor="age">
-                age
+            <div className="">
+              <label className="sr-only " htmlFor="email">
+                profilePic
               </label>
               <input
                 className="input input-solid"
-                placeholder="Age"
-                type="number"
-                id="age"
-                value={empFormData.age}
-                name="age"
-                onChange={updateEmpFormValue}
+                placeholder="Email address"
+                type="file"
+                id="profilePic"
+                name="profilePic"
+                onChange={updateEmpFormFile}
                 required
               />
             </div>
@@ -147,7 +184,7 @@ function EmployeeForm() {
               type="submit"
               className="rounded-lg btn btn-primary btn-block"
             >
-              Submit
+              {!updateMode ? "Submit" : "Update"}
             </button>
           </div>
         </form>

@@ -1,10 +1,6 @@
 // import ConfirmBox from "./component/custom/ConfirmBox";
 import Footer from "./component/Footer";
 import Header from "./component/Header";
-import Learning from "./component/Learning";
-import Home from "./component/views/Home";
-import EmployeeForm from "./component/EmployeeForm";
-import AdminLogin from "./component/AdminLogin";
 import { createContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 
