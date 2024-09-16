@@ -40,6 +40,10 @@ const employeeRouter = [
       },
     ],
   },
+  {
+    path: "*",
+    element: <h1>page not found</h1>,
+  },
 ];
 
 const router = createBrowserRouter(employeeRouter);
