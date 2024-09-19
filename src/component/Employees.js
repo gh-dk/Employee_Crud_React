@@ -1,32 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import EmployeeCard from "./EmployeeCard";
 // import { Employee } from "../classes/Employee.class";
-import { getAllEmployee } from "../model/employee.model";
+import { deleteEmployeeById, getAllEmployee } from "../model/employee.model";
 import { useLoaderData } from "react-router-dom";
 // import EmployeeOptions from "./EmployeeOptions";
 
 function Employees() {
-
   const myloadedData = useLoaderData();
-  const [employeeData] = useState(myloadedData.data);
+  console.log(myloadedData);
+
+  const [employeeData, setemployeeData] = useState(myloadedData.data);
 
   const handleChildEditEvent = (id) => {
     alert("edit : " + id);
   };
 
-  const handleChildDeleteEvent = (id) => {
-    alert("delete : " + id);
+  const handleChildDeleteEvent = async (id) => {
+    const deleteConfirmation = window.confirm(
+      "Are you sure you want to delete"
+    );
+    if (deleteConfirmation) {
+      const response = await deleteEmployeeById(id);
+      if (response.data.deletedCount > 0) {
+        alert("deleted");
+        await getEmployeeData();
+      } else {
+        alert("Failed to delete");
+      }
+    }
   };
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const data = await getAllEmployee();
-  //     console.log(data.data);
-  //     setemployeeData(data.data);
-  //   };
-  //   getData();
-  //   return () => {};
-  // }, []);
+  const getEmployeeData = async () => {
+    const data = await getAllEmployee();
+    console.log(data.data);
+    setemployeeData(data.data);
+  };
 
   return (
     <>

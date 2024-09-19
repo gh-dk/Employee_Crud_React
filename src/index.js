@@ -12,7 +12,7 @@ import Home from "./views/Home";
 import AdminLogin from "./component/AdminLogin";
 import EmployeeForm from "./component/EmployeeForm";
 import Learning from "./component/Learning";
-import { getAllEmployee } from "./model/employee.model";
+import { getAllEmployee, getEmployeeById } from "./model/employee.model";
 import Employees from "./component/Employees";
 
 const employeeRouter = [
@@ -44,6 +44,7 @@ const employeeRouter = [
       {
         path: "/editEmployee/:_id",
         element: <EmployeeForm />,
+        loader: async ({ params }) => await getEmployeeById(params._id),
       },
       {
         path: "/learn",

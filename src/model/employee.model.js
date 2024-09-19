@@ -17,9 +17,25 @@ export async function addEmployee(formData) {
   return response;
 }
 
-export function updateEmployee() {}
+export async function updateEmployee(_id, formData) {
+  console.log("im update model",_id, formData);
 
-export function deleteEmployeeById() {}
+  const response = await axios.patch(url + "/update/" + _id, formData);
+  return response;
+}
+
+export async function updateProfilePicOnly(_id, formData) {
+  const response = await axios.patch(
+    url + "/update/profilePic/" + _id,
+    formData
+  );
+  return response;
+}
+
+export async function deleteEmployeeById(_id) {
+  const response = await axios.delete(url + "/delete/" + _id);
+  return response;
+}
 
 function toBase64(arr) {
   return btoa(
@@ -27,7 +43,7 @@ function toBase64(arr) {
   );
 }
 export function bufferToImage(data) {
-  let profilePicBuffer = data.data.data;
+  let profilePicBuffer = data?.data?.data;
   const url = `data:image/jpeg;base64,${toBase64(profilePicBuffer)}`;
   return url;
 }

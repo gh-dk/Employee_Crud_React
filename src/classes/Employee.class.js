@@ -6,7 +6,8 @@ export class Employee {
     address = "",
     joiningDate = "",
     dept = "",
-    email = ""
+    email = "",
+    password = ""
   ) {
     this._id = _id;
     this.name = name;
@@ -15,5 +16,6 @@ export class Employee {
     this.joiningDate = joiningDate;
     this.dept = dept;
     this.email = email;
+    this.password = password;
   }
 }
