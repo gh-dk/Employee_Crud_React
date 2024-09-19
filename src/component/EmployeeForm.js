@@ -3,6 +3,7 @@ import { Employee } from "../classes/Employee.class";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import {
   addEmployee,
+  bufferToImage,
   updateEmployee,
   updateProfilePicOnly,
 } from "../model/employee.model";
@@ -30,12 +31,16 @@ function EmployeeForm() {
   }
 
   async function updateImageOnly(id) {
-    let formData = new FormData();
-    formData.append("profilePic", empFormData.profilePic);
-    const response = await updateProfilePicOnly(id, formData);
-    console.log(response);
-    if (response.data) {
-      navigate("/employee");
+    if (empFormData.profilePic.data === undefined) {
+      let formData = new FormData();
+      formData.append("profilePic", empFormData.profilePic);
+      const response = await updateProfilePicOnly(id, formData);
+      console.log(response);
+      if (response.data) {
+        navigate("/employee");
+      }
+    } else {
+      alert("Choose pic");
     }
   }
 
@@ -80,9 +85,14 @@ function EmployeeForm() {
         </h1>
 
         {updateMode && (
-          <div className="my-10">
-            <h1>Update Image </h1>
-            <br />
+          <div className="my-10 flex items-center gap-2">
+            {/* <h1>Update Image </h1>
+            <br /> */}
+            <img
+              className="w-16 rounded-lg"
+              src={bufferToImage(empFormData.profilePic)}
+              alt=""
+            />
             <input
               className="input input-solid"
               placeholder="Email address"

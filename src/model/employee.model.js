@@ -12,6 +12,11 @@ export async function getEmployeeById(_id) {
   return response;
 }
 
+export async function getEmployeeByName(empname) {
+  const response = await axios.get(url + "/search/" + empname);
+  return response;
+}
+
 export async function addEmployee(formData) {
   const response = await axios.post(`${url}/add`, formData);
   return response;

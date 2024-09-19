@@ -2,17 +2,22 @@ import moment from "moment";
 import React from "react";
 import { Link } from "react-router-dom";
 import { bufferToImage } from "../model/employee.model";
+import defaultEmploeePic from "../assets/defaultEmploeePic.png";
 
 function EmployeeCard({
   employeeData,
   handleChildEditEvent,
   handleChildDeleteEvent,
 }) {
+  const swithcToErrorImage = (event) => {
+    event.target.src = defaultEmploeePic;
+  };
   return (
     <div className="card card-image-cover max-w-[250px] group">
       <img
         className="aspect-square object-cover saturate-0 group-hover:saturate-100 m-3  group-hover:m-0 rounded-md duration-500 transition-all"
         src={bufferToImage(employeeData.profilePic)}
+        onError={swithcToErrorImage}
         alt=""
       />
       <div className="card-body p-3 pt-1">

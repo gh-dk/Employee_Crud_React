@@ -5,7 +5,7 @@ function EmployeeOptions() {
     <div className="px-5 mt-5 flex justify-center gap-5">
       <button class="btn btn-primary">Add Employee</button>
       <input className="input" placeholder="Search" />
-      <select className="select">
+      {/* <select className="select">
         <option>ASC</option>
         <option>DESC</option>
       </select>
@@ -13,7 +13,7 @@ function EmployeeOptions() {
         <option>ID</option>
         <option>NAME</option>
         <option>SALARY</option>
-      </select>
+      </select> */}
     </div>
   );
 }
